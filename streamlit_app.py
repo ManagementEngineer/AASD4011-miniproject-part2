@@ -6,7 +6,14 @@ import torch
 from torchvision import transforms
 import wget
 
-
+def load_model():
+    try:
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=True)
+        model.eval()
+        return model
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        
 def load_image():
     uploaded_file = st.file_uploader(label='Pick an image to test')
     if uploaded_file is not None:
